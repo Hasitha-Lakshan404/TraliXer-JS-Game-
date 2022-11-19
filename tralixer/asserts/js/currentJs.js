@@ -24,6 +24,7 @@ $(window).on('load',function () {
     /*===== Control main Character /player Sprites =====*/
     class Player{
 
+
     }
 
     /*===== Handling Enemy types =====*/
