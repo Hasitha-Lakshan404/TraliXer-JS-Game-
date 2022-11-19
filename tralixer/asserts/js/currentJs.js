@@ -10,8 +10,12 @@ $(window).on('load',function () {
     class InputHandler{
         constructor(game) {
             this.game=game;
-            $(window).on('keydown', function (event) {
-                console.log(event.key);
+            $(window).on('keydown', event => {
+                if(event.key==="ArrowUp"){
+                    alert("Reached")
+                    this.game.keys.push(event.key);
+                }
+                console.log(this.game.keys);
             });
         }
 
@@ -77,6 +81,7 @@ $(window).on('load',function () {
             this.height=height;
             this.player=new Player(this); //Create new Player Object and parse 'game' object to it
             this.input=new InputHandler(this);
+            this.keys=[];
         }
         update(){
             this.player.update();
