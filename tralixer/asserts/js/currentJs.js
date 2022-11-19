@@ -47,15 +47,16 @@ $(window).on('load',function () {
             this.x=20;
             this.y=100;
             this.speedY=0;
+            this.maxSpeed=5;
         }
 
         /*== for the player movement ==*/
         update(){
             if(this.game.keys.includes("ArrowUp")){
-                this.speedY=-1;
+                this.speedY=-this.maxSpeed;
 
             }else if(this.game.keys.includes("ArrowDown")){
-                this.speedY=1;
+                this.speedY=this.maxSpeed;
             }else{
                 this.speedY=0;
             }
