@@ -8,6 +8,12 @@ $(window).on('load',function () {
 
     /*===== Track Specified user Inputs =====*/
     class InputHandler{
+        constructor(game) {
+            this.game=game;
+            $(window).on('keydown', function (event) {
+                console.log(event.key);
+            });
+        }
 
     }
 
@@ -70,6 +76,7 @@ $(window).on('load',function () {
             this.width=width;
             this.height=height;
             this.player=new Player(this); //Create new Player Object and parse 'game' object to it
+            this.input=new InputHandler(this);
         }
         update(){
             this.player.update();
