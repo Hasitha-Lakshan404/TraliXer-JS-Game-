@@ -12,11 +12,18 @@ $(window).on('load',function () {
             this.game=game;
             $(window).on('keydown', event => {
                 if(event.key==="ArrowUp"){
-                    alert("Reached")
                     this.game.keys.push(event.key);
                 }
                 console.log(this.game.keys);
             });
+
+            $(window).on('keyup', event => {
+                if(this.game.keys.indexOf(event.key)>-1){
+                    this.game.keys.splice(this.game.keys.indexOf(event.key,1));
+                }
+                console.log(this.game.keys);
+            });
+
         }
 
     }
