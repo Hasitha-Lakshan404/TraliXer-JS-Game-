@@ -51,6 +51,12 @@ $(window).on('load',function () {
 
         /*== for the player movement ==*/
         update(){
+            if(this.game.keys.includes("ArrowUp")){
+                this.speedY=-1;
+
+            }else if(this.game.keys.includes("ArrowDown")){
+                this.speedY=1;
+            }
             this.y+=this.speedY;
         }
 
@@ -88,7 +94,7 @@ $(window).on('load',function () {
             this.height=height;
             this.player=new Player(this); //Create new Player Object and parse 'game' object to it
             this.input=new InputHandler(this);
-            this.keys=[];
+            this.keys=[]; //for the information what key are currently pressed
         }
         update(){
             this.player.update();
