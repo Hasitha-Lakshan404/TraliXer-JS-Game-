@@ -82,4 +82,13 @@ $(window).on('load',function () {
 
     const game=new Game(canvas.width,canvas.height);
 
+    //animation loop
+    function animate(){
+        game.update();
+        game.draw(ctx); //wants to create this canvas
+        requestAnimationFrame(animate); //RqAnimFrame -> adjust user Screen refreshRate , auto generate timeStamp argument
+    }
+    animate();
+
+
 });
