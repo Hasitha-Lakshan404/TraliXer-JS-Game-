@@ -56,6 +56,8 @@ $(window).on('load',function () {
 
             }else if(this.game.keys.includes("ArrowDown")){
                 this.speedY=1;
+            }else{
+                this.speedY=0;
             }
             this.y+=this.speedY;
         }
