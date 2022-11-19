@@ -84,6 +84,7 @@ $(window).on('load',function () {
 
     //animation loop
     function animate(){
+        ctx.clearRect(0,0,canvas.width,canvas.height);
         game.update();
         game.draw(ctx); //wants to create this canvas
         requestAnimationFrame(animate); //RqAnimFrame -> adjust user Screen refreshRate , auto generate timeStamp argument
