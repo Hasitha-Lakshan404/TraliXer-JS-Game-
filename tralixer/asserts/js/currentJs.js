@@ -11,7 +11,7 @@ $(window).on('load',function () {
         constructor(game) {
             this.game=game;
             $(window).on('keydown', event => {
-                if(event.key==="ArrowUp" && this.game.keys.indexOf(event.key)===-1){
+                if((event.key==="ArrowUp"||event.key==="ArrowDown") && this.game.keys.indexOf(event.key)===-1){
                     this.game.keys.push(event.key);
                 }
                 console.log(this.game.keys);
