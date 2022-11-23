@@ -13,6 +13,8 @@ $(window).on('load',function () {
             $(window).on('keydown', event => {
                 if((event.key==="ArrowUp"||event.key==="ArrowDown") && this.game.keys.indexOf(event.key)===-1){
                     this.game.keys.push(event.key);
+                }else if(event.key===" "){
+                    this.game.player.shootTop();
                 }
                 console.log(this.game.keys);
             });
@@ -67,6 +69,7 @@ $(window).on('load',function () {
             this.y=100;
             this.speedY=0;
             this.maxSpeed=5;
+            this.projectiles=[];
         }
 
         /*== for the player movement ==*/
@@ -87,6 +90,11 @@ $(window).on('load',function () {
             context.fillStyle='black'
             context.fillRect(this.x,this.y,this.width,this.height);
         }
+
+        shootTop(){
+            this.projectiles.push(new ProjectTitle(this.game,this.x,this.y));
+        }
+
 
     }
 
