@@ -134,6 +134,19 @@ $(window).on('load',function () {
 
     /*===== Draw Score timer ane other Display Information =====*/
     class Ui{
+        constructor(game) {
+            this.game=game;
+            this.fontSize=25;
+            this.fontFamily='Helvetica';
+            this.color='white';
+        }
+        draw(context){
+            //Ammo
+            context.fillStyle=this.color;
+            for (let i = 0; i < this.game.ammo; i++) {
+                context.fillRect(20+5*i,50,3,20);
+            }
+        }
 
     }
 
@@ -149,9 +162,13 @@ $(window).on('load',function () {
             this.ammo=20;
             this.ammoTimer=0;
             this.ammoInterval=500;
+
+            this.ui=new Ui(this);
         }
         update(deltaTime){
             this.player.update();
+
+            //for the refile Ammo
             if(this.ammoTimer>this.ammoInterval){
                 if(this.ammo<this.maxAmmo)this.ammo++;
                 this.ammoTimer=0;
@@ -162,6 +179,7 @@ $(window).on('load',function () {
 
         draw(context){ //to select which canvas
             this.player.draw(context);
+            this.ui.draw(context); //ui draw
         }
     }
 
