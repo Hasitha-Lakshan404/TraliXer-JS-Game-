@@ -83,16 +83,29 @@ $(window).on('load',function () {
                 this.speedY=0;
             }
             this.y+=this.speedY;
+
+            //handle projectiles
+            this.projectiles.forEach(projectile=>{
+                projectile.update();
+            });
+
+            this.projectiles=this.projectiles.filter(projectile=>!projectile.markedForDeletion);
         }
 
         /*== for the draw graphics ==*/
         draw(context){ //context -> which canvas element  we want to draw
             context.fillStyle='black'
             context.fillRect(this.x,this.y,this.width,this.height);
+
+            this.projectiles.forEach(projectile=>{
+                projectile.draw(context);
+            });
+
         }
 
         shootTop(){
             this.projectiles.push(new ProjectTitle(this.game,this.x,this.y));
+            console.log(this.projectiles);
         }
 
 
