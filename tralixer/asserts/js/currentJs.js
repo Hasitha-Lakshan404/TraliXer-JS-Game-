@@ -3,8 +3,8 @@ $(window).on('load',function () {
     //canvas Setup
     const canvas=document.getElementById('canvas1');
     const ctx =canvas.getContext('2d');
-    canvas.width=500;
-    canvas.height=500;
+    canvas.width=1430;
+    canvas.height=785;
 
     /*===== Track Specified user Inputs =====*/
     class InputHandler{
@@ -68,7 +68,7 @@ $(window).on('load',function () {
             this.x=20;
             this.y=100;
             this.speedY=0;
-            this.maxSpeed=5;
+            this.maxSpeed=3;
             this.projectiles=[];
         }
 
