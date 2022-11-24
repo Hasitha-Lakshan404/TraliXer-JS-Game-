@@ -105,7 +105,8 @@ $(window).on('load',function () {
 
         shootTop(){
             if(this.game.ammo>0){ //for the limit Ammo
-                this.projectiles.push(new ProjectTitle(this.game,this.x,this.y));
+                //at that time create new projectiles with given position.
+                this.projectiles.push(new ProjectTitle(this.game,this.x+80,this.y+50));
                 this.game.ammo--;
                 // console.log(this.projectiles);
             }
