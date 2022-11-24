@@ -150,8 +150,14 @@ $(window).on('load',function () {
             this.ammoTimer=0;
             this.ammoInterval=500;
         }
-        update(){
+        update(deltaTime){
             this.player.update();
+            if(this.ammoTimer>this.ammoInterval){
+                if(this.ammo<this.maxAmmo)this.ammo++;
+                this.ammoTimer=0;
+            }else{
+                this.ammoTimer+=deltaTime;
+            }
         }
 
         draw(context){ //to select which canvas
