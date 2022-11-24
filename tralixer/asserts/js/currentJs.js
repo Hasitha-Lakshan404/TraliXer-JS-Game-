@@ -89,6 +89,7 @@ $(window).on('load',function () {
                 projectile.update();
             });
 
+            //filter => get new Array and copy data and re
             this.projectiles=this.projectiles.filter(projectile=>!projectile.markedForDeletion);
         }
 
@@ -144,7 +145,10 @@ $(window).on('load',function () {
             this.player=new Player(this); //Create new Player Object and parse 'game' object to it
             this.input=new InputHandler(this);
             this.keys=[]; //for the information what key are currently pressed
+            this.maxAmmo=50;
             this.ammo=20;
+            this.ammoTimer=0;
+            this.ammoInterval=500;
         }
         update(){
             this.player.update();
@@ -156,15 +160,19 @@ $(window).on('load',function () {
     }
 
     const game=new Game(canvas.width,canvas.height);
+    let lastTime=0;
 
     //animation loop
-    function animate(){
+    function animate(timeStamp){
+        const deltaTime=timeStamp-lastTime;
+        // console.log(deltaTime)   //1000MS(1S)/8.3 = 120fps
+        lastTime=timeStamp;
         ctx.clearRect(0,0,canvas.width,canvas.height);
-        game.update();
+        game.update(deltaTime);
         game.draw(ctx); //wants to create this canvas
-        requestAnimationFrame(animate); //RqAnimFrame -> adjust user Screen refreshRate , auto generate timeStamp argument
+        requestAnimationFrame(animate); //RqAnimFrame -> adjust user Screen refreshRate , auto generate timeStamp argument/value
     }
-    animate();
+    animate(0);
 
 
 });
