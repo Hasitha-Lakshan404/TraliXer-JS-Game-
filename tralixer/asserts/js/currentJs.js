@@ -3,7 +3,7 @@ $(window).on('load',function () {
     //canvas Setup
     const canvas=document.getElementById('canvas1');
     const ctx =canvas.getContext('2d');
-    canvas.width=1430;
+    canvas.width=1600;
     canvas.height=785;
 
     /*===== Track Specified user Inputs =====*/
@@ -16,14 +16,14 @@ $(window).on('load',function () {
                 }else if(event.key===" "){
                     this.game.player.shootTop();
                 }
-                console.log(this.game.keys);
+                // console.log(this.game.keys);
             });
 
             $(window).on('keyup', event => {
                 if(this.game.keys.indexOf(event.key)>-1){
                     this.game.keys.splice(this.game.keys.indexOf(event.key,1));
                 }
-                console.log(this.game.keys);
+                // console.log(this.game.keys);
             });
 
         }
@@ -104,8 +104,12 @@ $(window).on('load',function () {
         }
 
         shootTop(){
-            this.projectiles.push(new ProjectTitle(this.game,this.x,this.y));
-            console.log(this.projectiles);
+            if(this.game.ammo>0){ //for the limit Ammo
+                this.projectiles.push(new ProjectTitle(this.game,this.x,this.y));
+                this.game.ammo--;
+                // console.log(this.projectiles);
+            }
+
         }
 
 
@@ -139,6 +143,7 @@ $(window).on('load',function () {
             this.player=new Player(this); //Create new Player Object and parse 'game' object to it
             this.input=new InputHandler(this);
             this.keys=[]; //for the information what key are currently pressed
+            this.ammo=20;
         }
         update(){
             this.player.update();
