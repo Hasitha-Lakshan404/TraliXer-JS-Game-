@@ -145,6 +145,7 @@ $(window).on('load',function () {
             context.fillStyle=this.color;
             for (let i = 0; i < this.game.ammo; i++) {
                 context.fillRect(20+5*i,50,3,20);
+                // console.log(i);
             }
         }
 
