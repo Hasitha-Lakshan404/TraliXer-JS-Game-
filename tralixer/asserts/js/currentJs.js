@@ -119,6 +119,10 @@ $(window).on('load',function () {
 
     /*===== Handling Enemy types =====*/
     class Enemy{
+        constructor(game) {
+            this.game=game;
+            this.x=this.game.width; //catch the right edge if game area
+        }
 
     }
 
@@ -138,7 +142,7 @@ $(window).on('load',function () {
             this.game=game;
             this.fontSize=25;
             this.fontFamily='Helvetica';
-            this.color='white';
+            this.color='yellow';
         }
         draw(context){
             //Ammo
@@ -148,7 +152,6 @@ $(window).on('load',function () {
                 // console.log(i);
             }
         }
-
     }
 
     /*===== All Game Logic =====*/
