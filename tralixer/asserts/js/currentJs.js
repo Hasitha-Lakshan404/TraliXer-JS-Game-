@@ -125,10 +125,6 @@ $(window).on('load',function () {
             this.speedX=Math.random() * -1.5 - 0.5;
             this.markedForDeletion=false;
 
-            // this.width=width;
-            // this.height=height;
-            // this.y=y;
-
         }
         update(){
             this.x+=this.speedX;
@@ -148,7 +144,7 @@ $(window).on('load',function () {
     class Angler1 extends Enemy{
         constructor(game) {
             super(game);
-            // this.width=228;
+            this.width=228;
             this.heigth=169;
             this.y=Math.random()*(this.game.height * 0.9 - this.heigth);
             //random -> 0 or more , *0.9 -> 90% from game height(top) , -this.height-> subtract img height cuz img wants to go up
@@ -241,7 +237,7 @@ $(window).on('load',function () {
 
         addEnemy(){
             this.enemies.push(new Angler1(this));
-            console.log("Added Enmy")
+            console.log(this.enemies);
         }
     }
 
