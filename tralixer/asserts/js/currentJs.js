@@ -124,6 +124,11 @@ $(window).on('load',function () {
             this.x=this.game.width; //catch the right edge if game area
             this.speedX=Math.random() * -1.5 - 0.5;
             this.markedForDeletion=false;
+
+            // this.width=width;
+            // this.height=height;
+            // this.y=y;
+
         }
         update(){
             this.x+=this.speedX;
@@ -134,7 +139,8 @@ $(window).on('load',function () {
 
         draw(context){
             context.fillStyle='red';
-            context.fillStyle(this.x,this.y,this.width,this.height);
+            // context.fillRect(this.x,this.y,this.width,this.height);
+            context.fillRect(this.x,this.y,100,100);
         }
 
     }
@@ -142,7 +148,7 @@ $(window).on('load',function () {
     class Angler1 extends Enemy{
         constructor(game) {
             super(game);
-            this.width=228;
+            // this.width=228;
             this.heigth=169;
             this.y=Math.random()*(this.game.height * 0.9 - this.heigth);
             //random -> 0 or more , *0.9 -> 90% from game height(top) , -this.height-> subtract img height cuz img wants to go up
@@ -186,14 +192,18 @@ $(window).on('load',function () {
             this.player=new Player(this); //Create new Player Object and parse 'game' object to it
             this.input=new InputHandler(this);
             this.keys=[]; //for the information what key are currently pressed
+
             this.maxAmmo=50;
             this.ammo=20;
             this.ammoTimer=0;
             this.ammoInterval=500;
 
-            this.enemies=[];
-
             this.ui=new Ui(this);
+
+            this.enemies=[];
+            this.enemyTimer=0;
+            this.enemyInterval=1000;
+            this.gameOver=false;
         }
         update(deltaTime){
             this.player.update();
@@ -211,6 +221,12 @@ $(window).on('load',function () {
                 enemy.update();
             });
             this.enemies=this.enemies.filter(enemy=>!enemy.markedForDeletion);
+            if(this.enemyTimer>this.enemyInterval && !this.gameOver){
+                this.addEnemy();
+                this.enemyTimer=0;
+            }else {
+                this.enemyTimer+=deltaTime;
+            }
 
         }
 
@@ -225,6 +241,7 @@ $(window).on('load',function () {
 
         addEnemy(){
             this.enemies.push(new Angler1(this));
+            console.log("Added Enmy")
         }
     }
 
