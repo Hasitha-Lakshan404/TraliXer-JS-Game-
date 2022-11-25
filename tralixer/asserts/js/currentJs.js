@@ -142,6 +142,10 @@ $(window).on('load',function () {
     class Angler1 extends Enemy{
         constructor(game) {
             super(game);
+            this.width=228;
+            this.heigth=169;
+            this.y=Math.random()*(this.game.height * 0.9 - this.heigth);
+            //random -> 0 or more , *0.9 -> 90% from game height(top) , -this.height-> subtract img height cuz img wants to go up
         }
     }
 
@@ -187,6 +191,8 @@ $(window).on('load',function () {
             this.ammoTimer=0;
             this.ammoInterval=500;
 
+            this.enemies=[];
+
             this.ui=new Ui(this);
         }
         update(deltaTime){
@@ -199,11 +205,26 @@ $(window).on('load',function () {
             }else{
                 this.ammoTimer+=deltaTime;
             }
+
+            //for the Enemy
+            this.enemies.forEach(enemy=>{
+                enemy.update();
+            });
+            this.enemies=this.enemies.filter(enemy=>!enemy.markedForDeletion);
+
         }
 
         draw(context){ //to select which canvas
             this.player.draw(context);
             this.ui.draw(context); //ui draw
+
+            this.enemies.forEach(enemy=>{
+                enemy.draw(context);
+            });
+        }
+
+        addEnemy(){
+            this.enemies.push(new Angler1(this));
         }
     }
 
