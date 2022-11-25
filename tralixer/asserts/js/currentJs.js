@@ -122,6 +122,8 @@ $(window).on('load',function () {
         constructor(game) {
             this.game=game;
             this.x=this.game.width; //catch the right edge if game area
+            this.speedX=Math.random() * -1.5 - 0.5;
+            this.markedForDeletion=false;
         }
 
     }
