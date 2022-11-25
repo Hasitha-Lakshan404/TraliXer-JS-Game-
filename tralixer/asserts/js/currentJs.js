@@ -125,8 +125,26 @@ $(window).on('load',function () {
             this.speedX=Math.random() * -1.5 - 0.5;
             this.markedForDeletion=false;
         }
+        update(){
+            this.x+=this.speedX;
+            if (this.x+this.width<0){
+                this.markedForDeletion=true;
+            }
+        }
+
+        draw(context){
+            context.fillStyle='red';
+            context.fillStyle(this.x,this.y,this.width,this.height);
+        }
 
     }
+
+    class Angler1 extends Enemy{
+        constructor(game) {
+            super(game);
+        }
+    }
+
 
     /*===== Handle individual Background Layers =====*/
     class Layer{
