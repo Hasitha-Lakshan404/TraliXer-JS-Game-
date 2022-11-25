@@ -140,7 +140,7 @@ $(window).on('load',function () {
         draw(context){
             context.fillStyle='red';
             // context.fillRect(this.x,this.y,this.width,this.height);
-            context.fillRect(this.x,this.y,100,100);
+            context.fillRect(this.x,this.y,228*0.2,169*0.2);
         }
 
     }
