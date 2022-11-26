@@ -126,6 +126,8 @@ $(window).on('load', function () {
             this.speedX = Math.random() * -1.5 - 0.5;
             this.markedForDeletion = false;
 
+            this.lives=5;
+
         }
 
         update() {
@@ -221,8 +223,18 @@ $(window).on('load', function () {
                 enemy.update();
                 if(this.checkCollision(this.player,enemy)){
                     enemy.markedForDeletion=true;
-                    console.log("awa")
+                    // console.log("Came")
                 }
+
+                this.player.projectiles.forEach(projectile=>{
+                    if(this.checkCollision(projectile,enemy)){
+                        enemy.lives--;
+                        projectile.markedForDeletion=true; //for the delete bullet
+                        // if(enemy.lives <=0){
+                            enemy.markedForDeletion=true;
+                        // }
+                    }
+                })
             });
             this.enemies = this.enemies.filter(enemy => !enemy.markedForDeletion);
             if (this.enemyTimer > this.enemyInterval && !this.gameOver) {
@@ -245,7 +257,7 @@ $(window).on('load', function () {
 
         addEnemy() {
             this.enemies.push(new Angler1(this));
-            console.log(this.enemies);
+            // console.log(this.enemies);
         }
 
         checkCollision(rect1, rect2) {
