@@ -127,6 +127,7 @@ $(window).on('load', function () {
             this.markedForDeletion = false;
 
             this.lives=5;
+            this.score=this.lives;
 
         }
 
@@ -141,6 +142,10 @@ $(window).on('load', function () {
             context.fillStyle = 'red';
             // context.fillRect(this.x,this.y,this.width,this.height);
             context.fillRect(this.x, this.y, 228 * 0.2, 169 * 0.2);
+
+            context.fillStyle="black";
+            context.fillText(this.lives,this.x,this.y);
+
         }
 
     }
@@ -230,10 +235,13 @@ $(window).on('load', function () {
                     if(this.checkCollision(projectile,enemy)){
                         enemy.lives--;
                         projectile.markedForDeletion=true; //for the delete bullet
-                        // if(enemy.lives <=0){
+
+                        if(enemy.lives <=0){
                             enemy.markedForDeletion=true;
-                        // }
+                            this.score+=enemy.score;
+                        }
                     }
+
                 })
             });
             this.enemies = this.enemies.filter(enemy => !enemy.markedForDeletion);
