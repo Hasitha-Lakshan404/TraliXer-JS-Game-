@@ -210,6 +210,9 @@ $(window).on('load', function () {
             this.enemyTimer = 0;
             this.enemyInterval = 1000;
             this.gameOver = false;
+
+            this.score=0;
+            this.winningScore=10;
         }
 
         update(deltaTime) {
@@ -239,6 +242,8 @@ $(window).on('load', function () {
                         if(enemy.lives <=0){
                             enemy.markedForDeletion=true;
                             this.score+=enemy.score;
+
+                            if(this.score>this.winningScore)this.gameOver=true;
                         }
                     }
 
