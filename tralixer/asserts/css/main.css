@@ -19,3 +19,7 @@ Time :9:13 PM
     max-width: 100%;
 
 }
+
+#layer1,#layer2,#layer3,#layer4{
+    display: none;
+}
