@@ -4,7 +4,7 @@ $(window).on('load', function () {
     const canvas = document.getElementById('canvas1');
     const ctx = canvas.getContext('2d');
     canvas.width = 1536;
-    canvas.height = 500;
+    canvas.height = 686;
 
     /*===== Track Specified user Inputs =====*/
     class InputHandler {
@@ -164,25 +164,49 @@ $(window).on('load', function () {
 
     /*===== Handle individual Background Layers =====*/
     class Layer {
-        constructor(game,image,speedModifier) {
+        constructor(game,image,image2,speedModifier) {
             this.game=game;
             this.image=image;
+            this.image2=image2;
             this.speedModifier=speedModifier;
             this.width=1768;
             this.height=1000;
             this.x=0;
             this.y=0;
+            this.selector=1;
+            this.count=0;
         }
         update(){
-            if(this.x <= -this.width){
-                this.x=0;
+            console.log("x : "+this.x +"     width : "+(-this.width)*2);
+
+            if(this.count=== 1){
+
+            }else if(this.count===2){
+
+            }
+
+            if(this.x <= -this.width*2){
+                this.x=0; //if the image area is over. image 1 is start from before that white space display on screen
+                this.selector=2;
             }else{
                 this.x -=this.game.speed*this.speedModifier;
             }
         }
 
         draw(context){
-            context.drawImage(this.image,this.x,this.y);
+            if(this.selector===1){
+                context.drawImage(this.image,this.x,this.y);
+                context.drawImage(this.image,this.x+this.width,this.y); //create new Image ane position it behind the image 1(end point)
+                context.drawImage(this.image,this.x+this.width*2,this.y); //create new Image ane position it behind the image 1(end point)
+                // this.selector=2;
+            }else {
+                context.drawImage(this.image2,this.x,this.y);
+                // this.image2.css('transform','scaleX(-1)');
+                context.drawImage(this.image2,this.x+this.width,this.y);
+                context.mi
+                context.drawImage(this.image2,this.x+this.width*2,this.y);
+                // this.selector=1;
+            }
         }
 
     }
@@ -191,17 +215,25 @@ $(window).on('load', function () {
     class Background {
         constructor(game) {
             this.game=game;
-            this.image1=document.getElementById('layer1');
-            this.image2=document.getElementById('layer2');
-            this.image3=document.getElementById('layer3');
-            this.image4=document.getElementById('layer4');
+            // this.image1=document.getElementById('layer1');
+            // this.image2=document.getElementById('layer2');
+            // this.image3=document.getElementById('layer3');
+            // this.image4=document.getElementById('layer4');
 
-            this.layer1=new Layer(this.game,this.image1,1);
-            this.layer2=new Layer(this.game,this.image2,1);
-            this.layer3=new Layer(this.game,this.image3,1);
-            this.layer4=new Layer(this.game,this.image4,1);
+            this.image5=document.getElementById('layer5');
+            this.image6=document.getElementById('layer6');
 
-            this.layers=[this.layer1,this.layer2,this.layer3,this.layer4];
+            // this.layer1=new Layer(this.game,this.image1,1);
+            // this.layer2=new Layer(this.game,this.image2,1);
+            // this.layer3=new Layer(this.game,this.image3,1);
+            // this.layer4=new Layer(this.game,this.image4,1);
+
+            this.layer5=new Layer(this.game,this.image5,this.image6,3);
+            this.layer6=new Layer(this.game,this.image6,this.image6,3);
+
+
+            // this.layers=[this.layer1,this.layer2,this.layer3,this.layer4];
+            this.layers=[this.layer5];
         }
 
         update(){
