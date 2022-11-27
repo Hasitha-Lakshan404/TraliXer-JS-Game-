@@ -197,6 +197,28 @@ $(window).on('load', function () {
                 context.fillRect(20 + 5 * i, 50, 3, 20);
                 // console.log(i);
             }
+
+            //game Over Msg
+            if(this.game.gameOver){
+                context.textAlign='center';
+                let msg1;
+                let msg2;
+                if(this.game.score>this.game.winningScore){
+                    msg1='you win';
+                    msg2='well done !'
+                }else{
+                    msg1='you Lose !';
+                    msg2='Try again next Time !'
+                }
+
+                context.font='50px'+this.fontFamily;
+                context.fillText(msg1,this.game.width*0.5,this.game.height*0.5);
+
+                context.font='25px'+this.fontFamily;
+                context.fillText(msg2,this.game.width*0.5,this.game.height*0.5);
+            }
+
+
             context.restore();
         }
     }
@@ -254,14 +276,14 @@ $(window).on('load', function () {
                             enemy.markedForDeletion=true;
                             this.score+=enemy.score;
 
-                            if(this.score>this.winningScore)this.gameOver=true;
+                            if(this.score>this.winningScore)this.gameOver=true; //when the game over
                         }
                     }
 
                 })
             });
             this.enemies = this.enemies.filter(enemy => !enemy.markedForDeletion);
-            if (this.enemyTimer > this.enemyInterval && !this.gameOver) {
+            if (this.enemyTimer > this.enemyInterval && !this.gameOver) { //when the game over stop added enemy
                 this.addEnemy();
                 this.enemyTimer = 0;
             } else {
