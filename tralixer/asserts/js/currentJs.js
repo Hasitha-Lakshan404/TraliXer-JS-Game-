@@ -198,6 +198,10 @@ $(window).on('load', function () {
                 // console.log(i);
             }
 
+            //Timer
+            const formattedTime=(this.game.gameTime*0.001).toFixed(1); //first no=*0.001 / second No -> .toFixed
+            context.fillText('Timer: '+formattedTime,20,100);
+
             //game Over Msg
             if(this.game.gameOver){
                 context.textAlign='center';
@@ -217,6 +221,8 @@ $(window).on('load', function () {
                 context.font='50px '+this.fontFamily;
                 context.fillText(msg2,this.game.width*0.5,this.game.height*0.55);
             }
+
+
 
 
             context.restore();
