@@ -3,8 +3,8 @@ $(window).on('load', function () {
     //canvas Setup
     const canvas = document.getElementById('canvas1');
     const ctx = canvas.getContext('2d');
-    canvas.width = 1600;
-    canvas.height = 785;
+    canvas.width = 1536;
+    canvas.height = 500;
 
     /*===== Track Specified user Inputs =====*/
     class InputHandler {
@@ -169,7 +169,7 @@ $(window).on('load', function () {
             this.image=image;
             this.speedModifier=speedModifier;
             this.width=1768;
-            this.height=600;
+            this.height=1000;
             this.x=0;
             this.y=0;
         }
@@ -192,9 +192,16 @@ $(window).on('load', function () {
         constructor(game) {
             this.game=game;
             this.image1=document.getElementById('layer1');
-            this.layer1=new Layer(this.game,this.image1,1);
+            this.image2=document.getElementById('layer2');
+            this.image3=document.getElementById('layer3');
+            this.image4=document.getElementById('layer4');
 
-            this.layers=[this.layer1];
+            this.layer1=new Layer(this.game,this.image1,1);
+            this.layer2=new Layer(this.game,this.image2,1);
+            this.layer3=new Layer(this.game,this.image3,1);
+            this.layer4=new Layer(this.game,this.image4,1);
+
+            this.layers=[this.layer1,this.layer2,this.layer3,this.layer4];
         }
 
         update(){
