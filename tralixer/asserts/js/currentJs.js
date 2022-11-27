@@ -144,6 +144,7 @@ $(window).on('load', function () {
             context.fillRect(this.x, this.y, 228 * 0.2, 169 * 0.2);
 
             context.fillStyle="black";
+            context.font='20px Roboto'
             context.fillText(this.lives,this.x,this.y);
 
         }
@@ -177,16 +178,26 @@ $(window).on('load', function () {
             this.game = game;
             this.fontSize = 25;
             this.fontFamily = 'Helvetica';
-            this.color = 'yellow';
+            this.color = 'White';
         }
 
         draw(context) {
+            //Score
+            context.save();
+            context.fillStyle=this.color;
+            context.shadowOffsetX=2;
+            context.shadowOffsetY=2;
+            context.shadowColor='black'
+            context.font=this.fontSize+'px'+this.fontFamily;
+            context.fillText("Score: "+this.game.score,20,40);
+
             //Ammo
             context.fillStyle = this.color;
             for (let i = 0; i < this.game.ammo; i++) {
                 context.fillRect(20 + 5 * i, 50, 3, 20);
                 // console.log(i);
             }
+            context.restore();
         }
     }
 
@@ -270,7 +281,7 @@ $(window).on('load', function () {
 
         addEnemy() {
             this.enemies.push(new Angler1(this));
-            // console.log(this.enemies);
+            console.log(this.enemies);
         }
 
         checkCollision(rect1, rect2) {
@@ -285,6 +296,11 @@ $(window).on('load', function () {
                 rect1.x + rect1.width > rect2.x &&
                 rect1.y < rect2.y + 10 &&
                 rect1.height + rect1.y > rect2.y
+
+            /*rect1.x < rect2.x + rect2.width
+            && rect1.x + rect1.width > rect2.x
+            && rect1.y < rect2.y + rect2.height
+            && rect1.height + rect1.y > rect2.y*/
             )
 
         }
