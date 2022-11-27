@@ -207,15 +207,15 @@ $(window).on('load', function () {
                     msg1='you win';
                     msg2='well done !'
                 }else{
-                    msg1='you Lose !';
+                    msg1='You Lose !';
                     msg2='Try again next Time !'
                 }
 
-                context.font='50px'+this.fontFamily;
-                context.fillText(msg1,this.game.width*0.5,this.game.height*0.5);
+                context.font='100px Ubuntu';
+                context.fillText(msg1,this.game.width*0.5,this.game.height*0.4);
 
-                context.font='25px'+this.fontFamily;
-                context.fillText(msg2,this.game.width*0.5,this.game.height*0.5);
+                context.font='50px '+this.fontFamily;
+                context.fillText(msg2,this.game.width*0.5,this.game.height*0.55);
             }
 
 
@@ -246,9 +246,18 @@ $(window).on('load', function () {
 
             this.score=0;
             this.winningScore=10;
+
+            this.gameTime=0;
+            this.timelimit=5000;
         }
 
         update(deltaTime) {
+
+            if(!this.gameOver){
+                this.gameTime+=deltaTime;
+            }
+            if(this.gameTime>this.timelimit)this.gameOver=true;
+
             this.player.update();
 
             //for the refile Ammo
