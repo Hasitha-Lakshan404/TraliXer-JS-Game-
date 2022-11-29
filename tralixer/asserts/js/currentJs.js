@@ -177,7 +177,7 @@ $(window).on('load', function () {
             this.count=0;
         }
         update(){
-            console.log("x : "+this.x +"     width : "+(-this.width)*2);
+            // console.log("x : "+this.x +"     width : "+(-this.width)*2);
 
             if(this.count=== 1){
 
@@ -187,10 +187,17 @@ $(window).on('load', function () {
 
             if(this.x <= -this.width*2){
                 this.x=0; //if the image area is over. image 1 is start from before that white space display on screen
-                this.selector=2;
-            }else{
-                this.x -=this.game.speed*this.speedModifier;
+                // this.selector=2;
+                console.log("x : "+this.x +"     width : "+(-this.width)*2);
+                this.selector++;
+                console.log(this.selector);
+                if(this.selector===3){
+                    this.selector=1;
+                }
             }
+            // else{
+                this.x -=this.game.speed*this.speedModifier;
+            // }
         }
 
         draw(context){
@@ -203,7 +210,7 @@ $(window).on('load', function () {
                 context.drawImage(this.image2,this.x,this.y);
                 // this.image2.css('transform','scaleX(-1)');
                 context.drawImage(this.image2,this.x+this.width,this.y);
-                context.mi
+                // $().css()
                 context.drawImage(this.image2,this.x+this.width*2,this.y);
                 // this.selector=1;
             }
