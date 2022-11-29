@@ -79,6 +79,7 @@ $(window).on('load', function () {
             this.speedY = 0;
             this.maxSpeed = 3;
             this.projectiles = [];
+            this.isShoot=game.isPlayerShoot;
 
             this.count=0;
             this.shootCount=0;
@@ -104,6 +105,7 @@ $(window).on('load', function () {
             this.shootCount++;
             if(this.shootCount===6){
                 this.shootCount=1;
+                // this.game.isPlayerShoot=false;
             }
 
 
@@ -400,7 +402,7 @@ $(window).on('load', function () {
 
             this.background=new Background(this);
 
-            this.isPlayerShoot=true;
+            this.isPlayerShoot=false;
         }
 
         update(deltaTime) {
