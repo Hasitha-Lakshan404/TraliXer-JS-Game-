@@ -137,6 +137,7 @@ $(window).on('load', function () {
 
             if(this.count===1){
                 context.drawImage(this.image,this.x,this.y,this.width,this.height);
+                // context.drawI
             }else if(this.count===2){
                 context.drawImage(this.image2,this.x,this.y,this.width,this.height);
             }
@@ -154,9 +155,7 @@ $(window).on('load', function () {
                 }else if(this.shootCount===5){
                     context.drawImage(this.imgS5,this.x,this.y,this.width,this.height);
                 }
-
             }
-
 
             this.projectiles.forEach(projectile => {
                 projectile.draw(context);
@@ -185,14 +184,20 @@ $(window).on('load', function () {
             this.speedX = Math.random() * -1.5 - 0.5;
             this.markedForDeletion = false;
 
-            this.lives=5;
+            this.lives=1;
             this.score=this.lives;
+
+            this.y=5;
+
+            // this.en1=document.getElementById("enemyV11");
+            // this.en2=document.getElementById("enemyV21");
+            // this.en3=document.getElementById("enemyV31");
 
         }
 
         update() {
-            this.x += this.speedX;
-            if (this.x + this.width < 0) {
+            this.x += this.speedX-this.game.speed;
+            if (this.x + this.game.width < 0) {
                 this.markedForDeletion = true;
             }
         }
@@ -200,9 +205,10 @@ $(window).on('load', function () {
         draw(context) {
             context.fillStyle = 'red';
             // context.fillRect(this.x,this.y,this.width,this.height);
-            context.fillRect(this.x, this.y, 228 * 0.2, 169 * 0.2);
+            // context.fillRect(this.x, this.y, 228 * 0.2, 169 * 0.2);
+            context.drawImage(this.image,this.x,this.y);
 
-            context.fillStyle="black";
+            // context.fillStyle="black";
             context.font='20px Roboto'
             context.fillText(this.lives,this.x,this.y);
 
@@ -215,6 +221,17 @@ $(window).on('load', function () {
             super(game);
             this.width = 228;
             this.heigth = 169;
+            this.image=document.getElementById("enemyV11");
+            this.y = Math.random() * (this.game.height * 0.9 - this.heigth);
+            //random -> 0 or more , *0.9 -> 90% from game height(top) , -this.height-> subtract img height cuz img wants to go up
+        }
+    }
+    class Angler2 extends Enemy {
+        constructor(game) {
+            super(game);
+            this.width = 228;
+            this.heigth = 169;
+            this.image=document.getElementById("enemyV21");
             this.y = Math.random() * (this.game.height * 0.9 - this.heigth);
             //random -> 0 or more , *0.9 -> 90% from game height(top) , -this.height-> subtract img height cuz img wants to go up
         }
@@ -397,7 +414,7 @@ $(window).on('load', function () {
             this.winningScore=10;
 
             this.gameTime=0;
-            this.timelimit=5000;
+            this.timelimit=500000;
             this.speed=1;
 
             this.background=new Background(this);
@@ -472,7 +489,15 @@ $(window).on('load', function () {
         }
 
         addEnemy() {
-            this.enemies.push(new Angler1(this));
+            const ran=Math.random(); //0-1
+
+            if(ran<0.5){
+                this.enemies.push(new Angler1(this));
+            }else {
+                this.enemies.push(new Angler2(this));
+            }
+
+
             // console.log(this.enemies);
         }
 

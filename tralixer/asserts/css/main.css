@@ -17,9 +17,9 @@ Time :9:13 PM
     background: #2e7fa2;
     max-height: 100%;
     max-width: 100%;
-
 }
 
-#layer1,#layer2,#layer3,#layer4,#layer5,#layer6,#player,#player2,#pShoot1,#pShoot2,#pShoot3,#pShoot4,#pShoot5{
+#layer1,#layer2,#layer3,#layer4,#layer5,#layer6,#player,#player2,#pShoot1,#pShoot2,#pShoot3,#pShoot4,#pShoot5
+,#enemyV11,#enemyV21,#enemyV31{
     display: none;
-}
+ }
