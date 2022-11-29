@@ -81,9 +81,16 @@ $(window).on('load', function () {
             this.projectiles = [];
 
             this.count=0;
+            this.shootCount=0;
 
             this.image=document.getElementById("player");
             this.image2=document.getElementById("player2");
+
+            this.imgS1=document.getElementById("pShoot1");
+            this.imgS2=document.getElementById("pShoot2");
+            this.imgS3=document.getElementById("pShoot3");
+            this.imgS4=document.getElementById("pShoot4");
+            this.imgS5=document.getElementById("pShoot5");
         }
 
         /*== for the player movement ==*/
@@ -93,8 +100,11 @@ $(window).on('load', function () {
             if(this.count===3){
                 this.count=1;
             }
-            playerX=this.x;
-            playerY=this.y;
+
+            this.shootCount++;
+            if(this.shootCount===6){
+                this.shootCount=1;
+            }
 
 
             if (this.game.keys.includes("ArrowUp")) {
@@ -129,9 +139,20 @@ $(window).on('load', function () {
                 context.drawImage(this.image2,this.x,this.y,this.width,this.height);
             }
 
+
             if(this.game.isPlayerShoot){
-                let img=document.getElementById("pShoot1")
-                context.drawImage(img,this.x,this.y,this.width,this.height)
+                if(this.shootCount===1){
+                    context.drawImage(this.imgS1,this.x,this.y,this.width,this.height);
+                }else if(this.shootCount===2){
+                    context.drawImage(this.imgS2,this.x,this.y,this.width,this.height);
+                }else if(this.shootCount===3){
+                    context.drawImage(this.imgS3,this.x,this.y,this.width,this.height);
+                }else if(this.shootCount===4){
+                    context.drawImage(this.imgS4,this.x,this.y,this.width,this.height);
+                }else if(this.shootCount===5){
+                    context.drawImage(this.imgS5,this.x,this.y,this.width,this.height);
+                }
+
             }
 
 
