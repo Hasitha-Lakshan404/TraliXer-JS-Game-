@@ -64,13 +64,15 @@ $(window).on('load', function () {
     class Player {
         constructor(game) {
             this.game = game;
-            this.width = 120;
-            this.height = 190;
+            this.width = 190;
+            this.height = 120;
             this.x = 20;
             this.y = 100;
             this.speedY = 0;
             this.maxSpeed = 3;
             this.projectiles = [];
+
+            this.image=document.getElementById("player");
         }
 
         /*== for the player movement ==*/
@@ -99,6 +101,8 @@ $(window).on('load', function () {
             context.fillStyle = 'black'
             context.fillRect(this.x, this.y, this.width, this.height);
 
+            context.drawImage(this.image,this.x,this.y,this.width,this.height);
+
             this.projectiles.forEach(projectile => {
                 projectile.draw(context);
             });
@@ -108,7 +112,7 @@ $(window).on('load', function () {
         shootTop() {
             if (this.game.ammo > 0) { //for the limit Ammo
                 //at that time create new projectiles with given position.
-                this.projectiles.push(new ProjectTitle(this.game, this.x + 80, this.y + 50));
+                this.projectiles.push(new ProjectTitle(this.game, this.x + 136, this.y + 86));
                 this.game.ammo--;
                 // console.log(this.projectiles);
             }
