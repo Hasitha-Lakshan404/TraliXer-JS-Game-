@@ -6,15 +6,23 @@ $(window).on('load', function () {
     canvas.width = 1536;
     canvas.height = 686;
 
+    let con;
+    let playerX;
+    let playerY;
+
     /*===== Track Specified user Inputs =====*/
     class InputHandler {
         constructor(game) {
             this.game = game;
+            let img=document.getElementById("pShoot1")
             $(window).on('keydown', event => {
                 if ((event.key === "ArrowUp" || event.key === "ArrowDown") && this.game.keys.indexOf(event.key) === -1) {
                     this.game.keys.push(event.key);
                 } else if (event.key === " ") {
                     this.game.player.shootTop();
+
+                    con.drawImage(img,playerX,playerY,100,100);
+                    // console.log("Player X :",playerX," PlayerY : ",playerY);
                 }
                 // console.log(this.game.keys);
             });
@@ -72,11 +80,23 @@ $(window).on('load', function () {
             this.maxSpeed = 3;
             this.projectiles = [];
 
+            this.count=0;
+
             this.image=document.getElementById("player");
+            this.image2=document.getElementById("player2");
         }
 
         /*== for the player movement ==*/
         update() {
+            this.count++;
+            // console.log(this.count);
+            if(this.count===3){
+                this.count=1;
+            }
+            playerX=this.x;
+            playerY=this.y;
+
+
             if (this.game.keys.includes("ArrowUp")) {
                 this.speedY = -this.maxSpeed;
 
@@ -98,10 +118,17 @@ $(window).on('load', function () {
 
         /*== for the draw graphics ==*/
         draw(context) { //context -> which canvas element  we want to draw
-            context.fillStyle = 'black'
-            context.fillRect(this.x, this.y, this.width, this.height);
+            // context.fillStyle = 'black'
+            // context.fillRect(this.x, this.y, this.width, this.height);
 
-            context.drawImage(this.image,this.x,this.y,this.width,this.height);
+            con=context; //getting to the global
+
+            if(this.count===1){
+                context.drawImage(this.image,this.x,this.y,this.width,this.height);
+            }else if(this.count===2){
+                context.drawImage(this.image2,this.x,this.y,this.width,this.height);
+            }
+
 
             this.projectiles.forEach(projectile => {
                 projectile.draw(context);
@@ -192,9 +219,9 @@ $(window).on('load', function () {
             if(this.x <= -this.width*2){
                 this.x=0; //if the image area is over. image 1 is start from before that white space display on screen
                 // this.selector=2;
-                console.log("x : "+this.x +"     width : "+(-this.width)*2);
+                // console.log("x : "+this.x +"     width : "+(-this.width)*2);
                 this.selector++;
-                console.log(this.selector);
+                // console.log(this.selector);
                 if(this.selector===3){
                     this.selector=1;
                 }
@@ -416,7 +443,7 @@ $(window).on('load', function () {
 
         addEnemy() {
             this.enemies.push(new Angler1(this));
-            console.log(this.enemies);
+            // console.log(this.enemies);
         }
 
         checkCollision(rect1, rect2) {
