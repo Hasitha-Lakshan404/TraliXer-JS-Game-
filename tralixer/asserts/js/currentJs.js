@@ -170,7 +170,6 @@ $(window).on('load', function () {
                 this.game.ammo--;
                 // console.log(this.projectiles);
             }
-
         }
 
 
@@ -188,6 +187,7 @@ $(window).on('load', function () {
             this.score=this.lives;
 
             this.y=5;
+            this.enCount=0;
 
             // this.en1=document.getElementById("enemyV11");
             // this.en2=document.getElementById("enemyV21");
@@ -196,6 +196,11 @@ $(window).on('load', function () {
         }
 
         update() {
+            //Animate Enemy
+            this.enCount++;
+            if(this.enCount===3){
+                this.enCount=1;
+            }
             this.x += this.speedX-this.game.speed;
             if (this.x + this.game.width < 0) {
                 this.markedForDeletion = true;
@@ -206,7 +211,21 @@ $(window).on('load', function () {
             context.fillStyle = 'red';
             // context.fillRect(this.x,this.y,this.width,this.height);
             // context.fillRect(this.x, this.y, 228 * 0.2, 169 * 0.2);
-            context.drawImage(this.image,this.x,this.y);
+
+
+            //for the Animate Enemy
+            if(this.enCount===1){
+                console.log(this.enCount);
+                context.drawImage(this.image,this.x,this.y);
+            }else if(this.enCount===2){
+                console.log(this.enCount);
+                context.drawImage(this.image2,this.x,this.y);
+            }else if(this.enCount===3){
+                console.log(this.enCount);
+                context.drawImage(this.image3,this.x,this.y);
+            }
+
+
 
             // context.fillStyle="black";
             context.font='20px Roboto'
@@ -222,6 +241,8 @@ $(window).on('load', function () {
             this.width = 228;
             this.heigth = 169;
             this.image=document.getElementById("enemyV11");
+            this.image2=document.getElementById("enemyV12");
+            this.image3=document.getElementById("enemyV13");
             this.y = Math.random() * (this.game.height * 0.9 - this.heigth);
             //random -> 0 or more , *0.9 -> 90% from game height(top) , -this.height-> subtract img height cuz img wants to go up
         }
@@ -232,6 +253,8 @@ $(window).on('load', function () {
             this.width = 228;
             this.heigth = 169;
             this.image=document.getElementById("enemyV21");
+            this.image2=document.getElementById("enemyV22");
+            this.image3=document.getElementById("enemyV23");
             this.y = Math.random() * (this.game.height * 0.9 - this.heigth);
             //random -> 0 or more , *0.9 -> 90% from game height(top) , -this.height-> subtract img height cuz img wants to go up
         }
