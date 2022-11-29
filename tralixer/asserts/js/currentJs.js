@@ -14,14 +14,14 @@ $(window).on('load', function () {
     class InputHandler {
         constructor(game) {
             this.game = game;
-            let img=document.getElementById("pShoot1")
+
             $(window).on('keydown', event => {
                 if ((event.key === "ArrowUp" || event.key === "ArrowDown") && this.game.keys.indexOf(event.key) === -1) {
                     this.game.keys.push(event.key);
                 } else if (event.key === " ") {
                     this.game.player.shootTop();
+                    this.game.isPlayerShoot=!this.game.isPlayerShoot;
 
-                    con.drawImage(img,playerX,playerY,100,100);
                     // console.log("Player X :",playerX," PlayerY : ",playerY);
                 }
                 // console.log(this.game.keys);
@@ -127,6 +127,11 @@ $(window).on('load', function () {
                 context.drawImage(this.image,this.x,this.y,this.width,this.height);
             }else if(this.count===2){
                 context.drawImage(this.image2,this.x,this.y,this.width,this.height);
+            }
+
+            if(this.game.isPlayerShoot){
+                let img=document.getElementById("pShoot1")
+                context.drawImage(img,this.x,this.y,this.width,this.height)
             }
 
 
@@ -373,6 +378,8 @@ $(window).on('load', function () {
             this.speed=1;
 
             this.background=new Background(this);
+
+            this.isPlayerShoot=true;
         }
 
         update(deltaTime) {
