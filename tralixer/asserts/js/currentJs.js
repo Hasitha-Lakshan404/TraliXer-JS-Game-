@@ -533,6 +533,10 @@ $(window).on('load', function () {
                             if(!this.gameOver)this.score+=enemy.score;
 
                             if(this.score>this.winningScore)this.gameOver=true; //when the game over
+                            let sound = new Audio();
+                            sound.src = "asserts/audio/blast.wav";
+                            sound.volume = 0.01;
+                            sound.play();
                         }
                         projectile.markedForDeletion=true; //for the delete bullet
 
@@ -541,6 +545,7 @@ $(window).on('load', function () {
                 })
             });
             this.enemies = this.enemies.filter(enemy => !enemy.markedForDeletion);
+
             if (this.enemyTimer > this.enemyInterval && !this.gameOver) { //when the game over stop added enemy
                 this.addEnemy();
                 this.enemyTimer = 0;
