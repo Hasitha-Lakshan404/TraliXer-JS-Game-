@@ -20,6 +20,6 @@ Time :9:13 PM
 }
 
 #layer1,#layer2,#layer3,#layer4,#layer5,#layer6,#player,#player2,#pShoot1,#pShoot2,#pShoot3,#pShoot4,#pShoot5
-,#enemyV11,#enemyV21,#enemyV31,#enemyV12,#enemyV22,#enemyV32,#enemyV13,#enemyV23,#enemyV33{
+,#enemyV11,#enemyV21,#enemyV31,#enemyV12,#enemyV22,#enemyV32,#enemyV13,#enemyV23,#enemyV33,#smokeEx,#fireEx,#laser{
     display: none;
  }

@@ -41,6 +41,9 @@ $(window).on('load', function () {
     /*===== Handle Player Lasers =====*/
     class ProjectTitle {
         constructor(game, x, y) {
+
+            this.image=document.getElementById("laser");
+
             this.game = game;
             this.x = x;
             this.y = y;
@@ -57,8 +60,9 @@ $(window).on('load', function () {
         }
 
         draw(context) {
-            context.fillStyle = 'yellow';
-            context.fillRect(this.x, this.y, this.width, this.height);
+            context.drawImage(this.image, this.x, this.y, this.width, this.height);
+            // context.fillStyle = 'yellow';
+            // context.fillRect(this.x, this.y, this.width, this.height);
         }
 
     }
@@ -243,6 +247,7 @@ $(window).on('load', function () {
         }
 
     }
+
 
     class Vehicle1 extends Enemy {
         constructor(game) {
@@ -471,6 +476,8 @@ $(window).on('load', function () {
             this.background=new Background(this);
 
             this.isPlayerShoot=false;
+
+
         }
 
         update(deltaTime) {
@@ -508,6 +515,7 @@ $(window).on('load', function () {
 
                         if(enemy.lives <=0){
                             enemy.markedForDeletion=true;
+
                             if(!this.gameOver)this.score+=enemy.score;
 
                             if(this.score>this.winningScore)this.gameOver=true; //when the game over
@@ -537,6 +545,8 @@ $(window).on('load', function () {
             this.enemies.forEach(enemy => {
                 enemy.draw(context);
             });
+
+
         }
 
         addEnemy() {
@@ -549,10 +559,9 @@ $(window).on('load', function () {
             }else{
                 this.enemies.push(new Vehicle3(this))
             }
-
-
             // console.log(this.enemies);
         }
+
 
         checkCollision(rect1, rect2) {
             // return true -> collide
