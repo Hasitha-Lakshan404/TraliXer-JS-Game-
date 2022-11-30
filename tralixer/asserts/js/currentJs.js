@@ -196,11 +196,13 @@ $(window).on('load', function () {
             this.speedX = Math.random() * -1.5 - 0.5;
             this.markedForDeletion = false;
 
-            /*this.lives=1;
-            this.score=this.lives;*/
 
             this.y=5;
             this.enCount=0;
+
+            //new
+            this.width = 100;
+            this.height = 100;
 
             // this.en1=document.getElementById("enemyV11");
             // this.en2=document.getElementById("enemyV21");
@@ -215,7 +217,7 @@ $(window).on('load', function () {
             //     this.enCount=1;
             // }
             this.x += this.speedX-this.game.speed;
-            if (this.x + this.game.width < 0) {
+            if (this.x + this.width < 0) {
                 this.markedForDeletion = true;
             }
         }
@@ -511,7 +513,6 @@ $(window).on('load', function () {
                 this.player.projectiles.forEach(projectile=>{
                     if(this.checkCollision(projectile,enemy)){
                         enemy.lives--;
-                        projectile.markedForDeletion=true; //for the delete bullet
 
                         if(enemy.lives <=0){
                             enemy.markedForDeletion=true;
@@ -520,6 +521,8 @@ $(window).on('load', function () {
 
                             if(this.score>this.winningScore)this.gameOver=true; //when the game over
                         }
+                        projectile.markedForDeletion=true; //for the delete bullet
+
                     }
 
                 })
@@ -571,15 +574,11 @@ $(window).on('load', function () {
             //height of rec 1 + its y position > vertical y position of rec 2 (player bottom and enemy top)
 
             return (
-                rect1.x < rect2.x + rect2.width &&
-                rect1.x + rect1.width > rect2.x &&
-                rect1.y < rect2.y + 10 &&
-                rect1.height + rect1.y > rect2.y
 
-            /*rect1.x < rect2.x + rect2.width
+            rect1.x < rect2.x + rect2.width
             && rect1.x + rect1.width > rect2.x
             && rect1.y < rect2.y + rect2.height
-            && rect1.height + rect1.y > rect2.y*/
+            && rect1.height + rect1.y > rect2.y
             )
 
         }
