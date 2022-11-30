@@ -119,6 +119,15 @@ $(window).on('load', function () {
             }
             this.y += this.speedY;
 
+
+            //handle vertical boundaries
+            if(this.y>this.game.height-this.height){ //down
+                this.y=this.game.height-this.height;
+            }else if(this.y< -this.height*0.5){ //up
+                this.y=-this.height*0.5;
+            }
+
+
             //handle projectiles
             this.projectiles.forEach(projectile => {
                 projectile.update();
@@ -183,8 +192,8 @@ $(window).on('load', function () {
             this.speedX = Math.random() * -1.5 - 0.5;
             this.markedForDeletion = false;
 
-            this.lives=1;
-            this.score=this.lives;
+            /*this.lives=1;
+            this.score=this.lives;*/
 
             this.y=5;
             this.enCount=0;
@@ -197,10 +206,10 @@ $(window).on('load', function () {
 
         update() {
             //Animate Enemy
-            this.enCount++;
-            if(this.enCount===3){
-                this.enCount=1;
-            }
+            // this.enCount++;
+            // if(this.enCount===3){
+            //     this.enCount=1;
+            // }
             this.x += this.speedX-this.game.speed;
             if (this.x + this.game.width < 0) {
                 this.markedForDeletion = true;
@@ -208,22 +217,22 @@ $(window).on('load', function () {
         }
 
         draw(context) {
-            context.fillStyle = 'red';
-            // context.fillRect(this.x,this.y,this.width,this.height);
-            // context.fillRect(this.x, this.y, 228 * 0.2, 169 * 0.2);
+            // context.fillStyle = 'red';
+            context.strokeRect(this.x,this.y,this.width,this.height);
+            // context.strokeRect(this.x, this.y, 228 * 0.2, 169 * 0.2);
 
 
             //for the Animate Enemy
-            if(this.enCount===1){
-                console.log(this.enCount);
+            // if(this.enCount===1){
+                // console.log(this.enCount);
                 context.drawImage(this.image,this.x,this.y);
-            }else if(this.enCount===2){
-                console.log(this.enCount);
-                context.drawImage(this.image2,this.x,this.y);
-            }else if(this.enCount===3){
-                console.log(this.enCount);
-                context.drawImage(this.image3,this.x,this.y);
-            }
+            // }else if(this.enCount===2){
+            //     console.log(this.enCount);
+                // context.drawImage(this.image2,this.x,this.y);
+            // }else if(this.enCount===3){
+            //     console.log(this.enCount);
+                // context.drawImage(this.image3,this.x,this.y,120,75);
+            // }
 
 
 
@@ -235,11 +244,13 @@ $(window).on('load', function () {
 
     }
 
-    class Angler1 extends Enemy {
+    class Vehicle1 extends Enemy {
         constructor(game) {
             super(game);
             this.width = 228;
             this.heigth = 169;
+            this.lives=1;
+            this.score=this.lives;
             this.image=document.getElementById("enemyV11");
             this.image2=document.getElementById("enemyV12");
             this.image3=document.getElementById("enemyV13");
@@ -247,14 +258,31 @@ $(window).on('load', function () {
             //random -> 0 or more , *0.9 -> 90% from game height(top) , -this.height-> subtract img height cuz img wants to go up
         }
     }
-    class Angler2 extends Enemy {
+    class Vehicle2 extends Enemy {
         constructor(game) {
             super(game);
             this.width = 228;
             this.heigth = 169;
+            this.lives=3;
+            this.score=this.lives;
             this.image=document.getElementById("enemyV21");
             this.image2=document.getElementById("enemyV22");
             this.image3=document.getElementById("enemyV23");
+            this.y = Math.random() * (this.game.height * 0.9 - this.heigth);
+            //random -> 0 or more , *0.9 -> 90% from game height(top) , -this.height-> subtract img height cuz img wants to go up
+        }
+    }
+
+    class Vehicle3 extends Enemy {
+        constructor(game) {
+            super(game);
+            this.width = 100;
+            this.heigth = 169;
+            this.lives=5;
+            this.score=this.lives;
+            this.image=document.getElementById("enemyV31");
+            this.image2=document.getElementById("enemyV32");
+            this.image3=document.getElementById("enemyV33");
             this.y = Math.random() * (this.game.height * 0.9 - this.heigth);
             //random -> 0 or more , *0.9 -> 90% from game height(top) , -this.height-> subtract img height cuz img wants to go up
         }
@@ -514,10 +542,12 @@ $(window).on('load', function () {
         addEnemy() {
             const ran=Math.random(); //0-1
 
-            if(ran<0.5){
-                this.enemies.push(new Angler1(this));
-            }else {
-                this.enemies.push(new Angler2(this));
+            if(ran<0.3){
+                this.enemies.push(new Vehicle1(this));
+            }else if(ran<0.6) {
+                this.enemies.push(new Vehicle2(this));
+            }else{
+                this.enemies.push(new Vehicle3(this))
             }
 
 
