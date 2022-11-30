@@ -7,8 +7,6 @@ $(window).on('load', function () {
     canvas.height = 686;
 
     let con;
-    let playerX;
-    let playerY;
 
     /*===== Track Specified user Inputs =====*/
     class InputHandler {
@@ -20,9 +18,26 @@ $(window).on('load', function () {
                     this.game.keys.push(event.key);
                 } else if (event.key === " ") {
                     this.game.player.shootTop();
+                    this.sound = new Audio();
+                    this.sound.src = "asserts/audio/laser.wav";
+                    this.sound.volume = 0.1;
+                    this.sound.play();
+
                     this.game.isPlayerShoot=!this.game.isPlayerShoot;
 
                     // console.log("Player X :",playerX," PlayerY : ",playerY);
+                }else if (event.key === "s") {
+                    // this.game.background.sound.volume = 0.3;
+                    // this.game.background.sound.play();
+                    this.game.sound = !this.game.sound;
+
+                    if (this.game.sound) {
+                        this.game.background.sound.volume = 0.3;
+                        this.game.background.sound.play();
+                        this.game.background.sound.loop = true;
+                    } else {
+                        this.game.background.sound.pause();
+                    }
                 }
                 // console.log(this.game.keys);
             });
@@ -224,7 +239,7 @@ $(window).on('load', function () {
 
         draw(context) {
             // context.fillStyle = 'red';
-            context.strokeRect(this.x,this.y,this.width,this.height);
+            // context.strokeRect(this.x,this.y,this.width,this.height);
             // context.strokeRect(this.x, this.y, 228 * 0.2, 169 * 0.2);
 
 
@@ -356,18 +371,13 @@ $(window).on('load', function () {
     class Background {
         constructor(game) {
             this.game=game;
-            // this.image1=document.getElementById('layer1');
-            // this.image2=document.getElementById('layer2');
-            // this.image3=document.getElementById('layer3');
-            // this.image4=document.getElementById('layer4');
+
 
             this.image5=document.getElementById('layer5');
             this.image6=document.getElementById('layer6');
 
-            // this.layer1=new Layer(this.game,this.image1,1);
-            // this.layer2=new Layer(this.game,this.image2,1);
-            // this.layer3=new Layer(this.game,this.image3,1);
-            // this.layer4=new Layer(this.game,this.image4,1);
+            this.sound = new Audio();
+            this.sound.src = "asserts/audio/background.ogg";
 
             this.layer5=new Layer(this.game,this.image5,this.image6,3);
             this.layer6=new Layer(this.game,this.image6,this.image6,3);
@@ -420,6 +430,10 @@ $(window).on('load', function () {
             const formattedTime=(this.game.gameTime*0.001).toFixed(1); //first no=*0.001 / second No -> .toFixed
             context.fillText('Timer: '+formattedTime,20,100);
 
+            //level
+            context.fillText('Level : '+1,150,100);
+
+
             //game Over Msg
             if(this.game.gameOver){
                 context.textAlign='center';
@@ -469,16 +483,15 @@ $(window).on('load', function () {
             this.gameOver = false;
 
             this.score=0;
-            this.winningScore=10;
+            this.winningScore=20;
 
             this.gameTime=0;
-            this.timelimit=500000;
+            this.timelimit=15000;
             this.speed=1;
 
             this.background=new Background(this);
 
             this.isPlayerShoot=false;
-
 
         }
 
@@ -574,7 +587,6 @@ $(window).on('load', function () {
             //height of rec 1 + its y position > vertical y position of rec 2 (player bottom and enemy top)
 
             return (
-
             rect1.x < rect2.x + rect2.width
             && rect1.x + rect1.width > rect2.x
             && rect1.y < rect2.y + rect2.height
